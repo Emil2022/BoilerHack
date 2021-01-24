@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width">
+   <title>repl.it</title>
+  
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ 
+ </head>
+  <body>
+ 
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+ <a class="navbar-brand" href="index.html">
+   <img src="Notes.png" width="30" height="30" class="d-inline-block align-top" alt="">
+   R-Cubed
+ </a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+ </button>
+ <div class="collapse navbar-collapse" id="navbarNavDropdown">
+   <ul class="navbar-nav">
+     <li class="nav-item active">
+       <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="Schedule_Input.html">Add New Reflection</a>
+     </li>
+   
+     <li class="nav-item dropdown">
+       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         View Reflections
+       </a>
+       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+         <a class="dropdown-item" href="View_Reflections.html">Overall</a>
+         <a class="dropdown-item" href="View_Class.html">By Class</a>
+         <a class="dropdown-item" href="View_Specific_Reflection.html">By Semester</a>
+       </div>
+     </li>
+   </ul>
+ </div>
+</nav>
+  
+   <p>This page is intended to allow users to input their class information </p>
+ 
+ <form>
+ <div class="form-group">
+   <label for="class">Enter Class:</label>
+   <input type="text" class="form-control" id="class" placeholder="EECS 280" required>
+ </div>
+  <div class="form-group">
+   <label for="semester">Enter Semester:</label>
+   <input type="text" class="form-control" id="semester" placeholder = "Fall 2020" required>
+ </div>
+ <label>Is this a good or bad reflection:   </label>
+
+<script type="text/javascript">
+function handleClick(myRadio) {
+	if(myRadio.value== "true")
+	{
+	document.getElementById("wrong").disabled = false;
+  document.getElementById("right").disabled = true;
+	}
+  
+	else
+	{
+  document.getElementById("wrong").disabled = true;
+  document.getElementById("right").disabled = false;
+	}
+}
+</script>
+
+
+
+
+<input type="radio" name="radSize" id="generic_test" value="false" checked="checked" onclick="handleClick(this);"/>
+<label for="generic_test">Good</label>
+
+<input type="radio" name="radSize" id="project_test" value="true" onclick="handleClick(this);" />
+<label for="project_test">Bad</label>
+
+
+
+
+
+ <div class="form-group">
+   <label for="good">What Went Right?</label>
+   <textarea disabled="disabled" id="right" class="form-control" id="good" rows="3"></textarea>
+ </div>
+ 
+ 
+ <div class="form-group">
+   <label for="bad">What Went Wrong?</label>
+   <textarea disabled="disabled" id="wrong" class="form-control"  rows="3"></textarea>
+ </div>
+
+  <div class="form-group">
+   <label for="future">Additional Reflection:</label>
+   <textarea class="form-control" id="future" rows="3"></textarea>
+ </div>
+ 
+ 
+ 
+
+ 
+ 
+<!-- Bootstrap JavaScript  -->
+<script>
+       let reflections = [];
+       // example {id:1592304983049, title: 'Deadpool', year: 2015}
+       const addReflection = (ev)=>{
+           ev.preventDefault();  //to stop the form submitting
+           let reflection = {
+               class: document.getElementById('class').value,
+               semester: document.getElementById('semester').value,
+               good: document.getElementById('good').value,
+               bad: document.getElementById('bad').value,
+               future: document.getElementById('future').value,
+           }
+           reflections.push(reflection);
+           document.forms[0].reset(); // to clear the form for the next entries
+           //document.querySelector('form').reset();
+ 
+           //for display purposes only
+           console.warn('added' , {reflections} );
+           let pre = document.querySelector('#msg pre');
+           pre.textContent = '\n' + JSON.stringify(reflections, '\t', 2);
+ 
+          
+           //saving to localStorage
+           localStorage.setItem('MyReflectionLog', JSON.stringify(reflections) );
+       }
+       document.addEventListener('DOMContentLoaded', ()=>{
+           document.getElementById('btn').addEventListener('click', addReflection);
+       });
+   </script>
+ 
+<center><a class="btn btn-outline-primary" href="View_Reflections.html" role="button">Submit </a></center>
+ 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ </body>
+ 
+ </html>
+ 
+
